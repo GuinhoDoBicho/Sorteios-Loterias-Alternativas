@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="pt-pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SORTEIOS PARA LOTERIAS ALTERNATIVA</title>
+    <style>
+        :root {
+            --roxo: #8e44ad;
+            --verde: #27ae60;
+            --azul: #2980b9;
+            --fundo: #f0f2f5;
+            --texto: #2c3e50;
+        }
+
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background-color: var(--fundo);
+            color: var(--texto);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        h1 {
+            font-size: 1.8rem;
+            color: #1a1a1a;
+            border-bottom: 3px solid #333;
+            padding-bottom: 10px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 600px;
+        }
+
+        .cartao {
+            background: #fff;
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 25px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+            text-align: center;
+        }
+
+        .titulo-loteria {
+            font-size: 1.4rem;
+            font-weight: bold;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+        }
+
+        .numeros-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .bola {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 1.1rem;
+            box-shadow: 0 4px 0 rgba(0,0,0,0.2);
+        }
+
+        /* Cores Específicas */
+        .lotinha .titulo-loteria { color: var(--roxo); }
+        .lotinha .bola { background-color: var(--roxo); }
+
+        .seninha .titulo-loteria { color: var(--verde); }
+        .seninha .bola { background-color: var(--verde); }
+
+        .quininha .titulo-loteria { color: var(--azul); }
+        .quininha .bola { background-color: var(--azul); }
+
+        .info-horario {
+            font-size: 0.9rem;
+            color: #7f8c8d;
+            margin-top: 10px;
+        }
+
+        footer {
+            margin-top: 50px;
+            padding: 20px;
+            font-weight: bold;
+            border-top: 1px solid #ddd;
+            width: 100%;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>SORTEIOS PARA LOTERIAS ALTERNATIVA</h1>
+        <p id="relogio">A carregar horário...</p>
+    </header>
+
+    <div class="container">
+        <div class="cartao lotinha">
+            <div class="titulo-loteria">Lotinha</div>
+            <div class="numeros-container" id="resultado-lotinha"></div>
+            <div class="info-horario">Sorteio de 15 dezenas (01-25)</div>
+        </div>
+
+        <div class="cartao seninha">
+            <div class="titulo-loteria">Seninha</div>
+            <div class="numeros-container" id="resultado-seninha"></div>
+            <div class="info-horario">Sorteio de 6 dezenas (01-60)</div>
+        </div>
+
+        <div class="cartao quininha">
+            <div class="titulo-loteria">Quininha</div>
+            <div class="numeros-container" id="resultado-quininha"></div>
+            <div class="info-horario">Sorteio de 5 dezenas (01-80)</div>
+        </div>
+    </div>
+
+    <footer>
+        Criado por Guinho Lotofacil
+    </footer>
+
+    <script>
+        // Função para gerar números aleatórios porém consistentes baseados numa semente
+        function gerarNumerosSorteados(semente, quantidade, maximo) {
+            const numeros = [];
+            let s = semente;
+            
+            // Função pseudo-aleatória
+            const random = () => {
+                s = Math.sin(s) * 10000;
+                return s - Math.floor(s);
+            };
+
+            while (numeros.length < quantidade) {
+                const num = Math.floor(random() * maximo) + 1;
+                if (!numeros.includes(num)) {
+                    numeros.push(num);
+                }
+            }
+            return numeros.sort((a, b) => a - b);
+        }
+
+        function atualizarSorteios() {
+            const agora = new Date();
+            const ano = agora.getFullYear();
+            const mes = agora.getMonth();
+            const dia = agora.getDate();
+            const hora = agora.getHours();
+
+            // Define a semente baseada na regra das 21h
+            let dataReferencia = new Date(ano, mes, dia);
+            
+            if (hora < 21) {
+                // Se ainda não são 21h, usa a semente do dia anterior
+                dataReferencia.setDate(dataReferencia.getDate() - 1);
+            }
+
+            const sementeBase = dataReferencia.getTime();
+
+            // Renderiza cada loteria
+            exibirBolas('resultado-lotinha', gerarNumerosSorteados(sementeBase, 15, 25));
+            exibirBolas('resultado-seninha', gerarNumerosSorteados(sementeBase + 1, 6, 60));
+            exibirBolas('resultado-quininha', gerarNumerosSorteados(sementeBase + 2, 5, 80));
+
+            document.getElementById('relogio').innerText = "Horário atual: " + agora.toLocaleTimeString('pt-PT');
+        }
+
+        function exibirBolas(idElemento, numeros) {
+            const container = document.getElementById(idElemento);
+            container.innerHTML = '';
+            numeros.forEach(n => {
+                const bola = document.createElement('div');
+                bola.className = 'bola';
+                bola.innerText = n < 10 ? '0' + n : n;
+                container.appendChild(bola);
+            });
+        }
+
+        // Atualiza a cada segundo para garantir precisão na viragem das 21h
+        setInterval(atualizarSorteios, 1000);
+        atualizarSorteios();
+    </script>
+</body>
+</html>
