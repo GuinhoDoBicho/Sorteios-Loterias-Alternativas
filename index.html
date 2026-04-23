@@ -12,6 +12,7 @@
             --rosa: #e91e63;
             --marrom: #795548;
             --laranja: #f39c12;
+            --whatsapp: #25D366;
             --fundo: #f0f2f5;
             --texto: #2c3e50;
         }
@@ -52,7 +53,6 @@
 
         .numeros-container { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; min-height: 40px; }
 
-        /* --- ANIMAÇÃO DAS BOLAS --- */
         @keyframes popIn {
             0% { transform: scale(0); opacity: 0; }
             80% { transform: scale(1.1); }
@@ -63,27 +63,43 @@
             width: 34px; height: 34px; border-radius: 50%; display: flex;
             align-items: center; justify-content: center; color: white;
             font-weight: bold; font-size: 0.9rem; box-shadow: 0 3px 0 rgba(0,0,0,0.15);
-            /* Aplica a animação */
             animation: popIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) both;
         }
 
-        .lotinha .titulo-loteria { color: var(--roxo); }
-        .lotinha .bola { background-color: var(--roxo); }
-        .seninha .titulo-loteria { color: var(--verde); }
-        .seninha .bola { background-color: var(--verde); }
-        .quininha .titulo-loteria { color: var(--azul); }
-        .quininha .bola { background-color: var(--azul); }
-        .dupla-seninha .titulo-loteria { color: var(--rosa); }
-        .dupla-seninha .bola { background-color: var(--rosa); }
-        .super-7 .titulo-loteria { color: var(--marrom); }
-        .super-7 .bola { background-color: var(--marrom); }
-        .super-20 .titulo-loteria { color: var(--laranja); }
-        .super-20 .bola { background-color: var(--laranja); }
+        /* Cores */
+        .lotinha .bola { background-color: var(--roxo); } .lotinha .titulo-loteria { color: var(--roxo); }
+        .seninha .bola { background-color: var(--verde); } .seninha .titulo-loteria { color: var(--verde); }
+        .quininha .bola { background-color: var(--azul); } .quininha .titulo-loteria { color: var(--azul); }
+        .dupla-seninha .bola { background-color: var(--rosa); } .dupla-seninha .titulo-loteria { color: var(--rosa); }
+        .super-7 .bola { background-color: var(--marrom); } .super-7 .titulo-loteria { color: var(--marrom); }
+        .super-20 .bola { background-color: var(--laranja); } .super-20 .titulo-loteria { color: var(--laranja); }
+
+        /* Banner WhatsApp */
+        .banner-zap {
+            width: 100%;
+            max-width: 600px;
+            background-color: var(--whatsapp);
+            color: white;
+            text-decoration: none;
+            padding: 15px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            font-weight: bold;
+            font-size: 1.1rem;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);
+            transition: transform 0.2s;
+        }
+
+        .banner-zap:hover { transform: scale(1.02); }
 
         .info-horario { font-size: 0.75rem; color: #7f8c8d; margin-top: 15px; }
 
         footer {
-            margin-top: 30px; padding: 20px; font-weight: bold;
+            margin-top: 20px; padding: 20px; font-weight: bold;
             border-top: 1px solid #ddd; width: 100%; text-align: center;
         }
     </style>
@@ -97,6 +113,13 @@
     </header>
 
     <div class="container">
+        <a href="https://wa.me/5581983638967" target="_blank" class="banner-zap">
+            <svg style="width:24px;height:24px" viewBox="0 0 24 24">
+                <path fill="currentColor" d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91C2.13 13.66 2.59 15.36 3.45 16.86L2.05 22L7.3 20.62C8.75 21.41 10.38 21.83 12.04 21.83C17.5 21.83 21.95 17.38 21.95 11.92C21.95 9.27 20.92 6.78 19.05 4.91C17.18 3.03 14.69 2 12.04 2M12.05 3.67C14.25 3.67 16.31 4.53 17.87 6.09C19.42 7.65 20.28 9.72 20.28 11.92C20.28 16.46 16.58 20.15 12.04 20.15C10.66 20.15 9.3 19.81 8.1 19.14L7.76 18.94L4.62 19.77L5.46 16.73L5.24 16.38C4.52 15.22 4.14 13.88 4.14 12.42V11.91C4.14 7.56 7.7 4 12.05 4.14V3.67M8.53 7.33C8.31 7.33 7.95 7.41 7.65 7.74C7.35 8.07 6.5 8.87 6.5 10.53C6.5 12.18 7.7 13.78 7.87 14C8.03 14.22 10.19 17.5 13.5 18.93C14.29 19.27 14.9 19.47 15.38 19.63C16.17 19.88 16.89 19.85 17.46 19.76C18.11 19.67 19.44 18.96 19.72 18.17C20 17.39 20 16.72 19.92 16.58C19.83 16.44 19.61 16.37 19.28 16.21C18.94 16.03 17.32 15.24 17.02 15.13C16.72 15.02 16.5 14.97 16.28 15.3C16.06 15.63 15.43 16.37 15.24 16.58C15.04 16.8 14.85 16.83 14.5 16.67C14.16 16.5 13.09 16.15 11.83 15.03C10.85 14.15 10.18 13.07 10 12.73C9.8 12.39 9.97 12.21 10.14 12.05C10.29 11.9 10.47 11.66 10.63 11.43C10.8 11.21 10.85 11.04 10.96 10.82C11.07 10.6 11.02 10.41 10.94 10.24C10.85 10.08 10.19 8.46 9.91 7.81C9.64 7.16 9.36 7.26 9.15 7.25C8.94 7.24 8.71 7.24 8.48 7.24L8.53 7.33Z" />
+            </svg>
+            SE PRECISAR ME CHAMA NO ZAP
+        </a>
+
         <div class="cartao lotinha">
             <div class="titulo-loteria">Lotinha</div>
             <div class="numero-concurso" id="concurso-lotinha">Sorteio Nº --</div>
@@ -159,9 +182,7 @@
             };
             while (numeros.length < quantidade) {
                 const num = Math.floor(random() * (maximo - minimo + 1)) + minimo;
-                if (!numeros.includes(num)) {
-                    numeros.push(num);
-                }
+                if (!numeros.includes(num)) numeros.push(num);
             }
             return numeros.sort((a, b) => a - b);
         }
@@ -170,13 +191,9 @@
             const agora = new Date();
             const hora = agora.getHours();
             let dataRef = new Date(agora.getFullYear(), agora.getMonth(), agora.getDate());
-            
-            if (hora < 21) {
-                dataRef.setDate(dataRef.getDate() - 1);
-            }
+            if (hora < 21) dataRef.setDate(dataRef.getDate() - 1);
 
-            const diffDays = Math.floor(Math.abs(dataRef - DATA_INICIO) / (1000 * 60 * 60 * 24));
-            const nSorteio = diffDays + 1;
+            const nSorteio = Math.floor(Math.abs(dataRef - DATA_INICIO) / (1000 * 60 * 60 * 24)) + 1;
             const semente = dataRef.getTime();
 
             const txt = `SORTEIO Nº ${nSorteio}`;
@@ -201,14 +218,12 @@
             const container = document.getElementById(id);
             if (!container) return;
             const str = numeros.join(',');
-            
             if (container.getAttribute('data-last') !== str) {
                 container.innerHTML = '';
                 numeros.forEach((n, index) => {
                     const bola = document.createElement('div');
                     bola.className = 'bola';
                     bola.innerText = n < 10 ? '0' + n : n;
-                    // Efeito Staggered: cada bola aparece 0.05s depois da anterior
                     bola.style.animationDelay = (index * 0.05) + 's';
                     container.appendChild(bola);
                 });
