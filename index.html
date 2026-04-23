@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-pt">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,6 +9,7 @@
             --roxo: #8e44ad;
             --verde: #27ae60;
             --azul: #2980b9;
+            --rosa: #e91e63;
             --fundo: #f0f2f5;
             --texto: #2c3e50;
         }
@@ -24,82 +25,51 @@
             align-items: center;
         }
 
-        header {
-            text-align: center;
-            margin-bottom: 40px;
+        header { text-align: center; margin-bottom: 25px; }
+        h1 { font-size: 1.5rem; color: #1a1a1a; margin-bottom: 5px; text-transform: uppercase; }
+
+        .contador-global {
+            background: #333; color: #fff; padding: 5px 15px;
+            border-radius: 20px; font-weight: bold; display: inline-block; margin-bottom: 15px;
         }
 
-        h1 {
-            font-size: 1.8rem;
-            color: #1a1a1a;
-            border-bottom: 3px solid #333;
-            padding-bottom: 10px;
-        }
-
-        .container {
-            width: 100%;
-            max-width: 600px;
-        }
+        .container { width: 100%; max-width: 600px; }
 
         .cartao {
-            background: #fff;
-            border-radius: 15px;
-            padding: 20px;
-            margin-bottom: 25px;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
-            text-align: center;
+            background: #fff; border-radius: 15px; padding: 20px;
+            margin-bottom: 25px; box-shadow: 0 10px 20px rgba(0,0,0,0.05); text-align: center;
         }
 
-        .titulo-loteria {
-            font-size: 1.4rem;
-            font-weight: bold;
-            margin-bottom: 15px;
-            text-transform: uppercase;
+        .titulo-loteria { font-size: 1.4rem; font-weight: bold; margin-bottom: 5px; text-transform: uppercase; }
+        .numero-concurso { font-size: 0.9rem; margin-bottom: 15px; font-weight: 600; opacity: 0.7; }
+
+        .sub-titulo-dupla {
+            font-size: 0.8rem; font-weight: bold; margin: 10px 0 5px 0;
+            color: #555; background: #fdf2f8; display: inline-block; padding: 2px 10px; border-radius: 5px;
         }
 
-        .numeros-container {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 10px;
-        }
+        .numeros-container { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; }
 
         .bola {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-weight: bold;
-            font-size: 1.1rem;
-            box-shadow: 0 4px 0 rgba(0,0,0,0.2);
+            width: 38px; height: 38px; border-radius: 50%; display: flex;
+            align-items: center; justify-content: center; color: white;
+            font-weight: bold; font-size: 1rem; box-shadow: 0 4px 0 rgba(0,0,0,0.15);
         }
 
-        /* Cores Específicas */
         .lotinha .titulo-loteria { color: var(--roxo); }
         .lotinha .bola { background-color: var(--roxo); }
-
         .seninha .titulo-loteria { color: var(--verde); }
         .seninha .bola { background-color: var(--verde); }
-
         .quininha .titulo-loteria { color: var(--azul); }
         .quininha .bola { background-color: var(--azul); }
+        .dupla-seninha .titulo-loteria { color: var(--rosa); }
+        .dupla-seninha .bola { background-color: var(--rosa); }
 
-        .info-horario {
-            font-size: 0.9rem;
-            color: #7f8c8d;
-            margin-top: 10px;
-        }
+        .info-horario { font-size: 0.8rem; color: #7f8c8d; margin-top: 15px; }
 
         footer {
-            margin-top: 50px;
-            padding: 20px;
-            font-weight: bold;
-            border-top: 1px solid #ddd;
-            width: 100%;
-            text-align: center;
+            margin-top: 30px; padding: 20px; font-weight: bold;
+            border-top: 1px solid #ddd; width: 100%; text-align: center;
         }
     </style>
 </head>
@@ -107,26 +77,43 @@
 
     <header>
         <h1>SORTEIOS PARA LOTERIAS ALTERNATIVA</h1>
-        <p id="relogio">A carregar horário...</p>
+        <div id="display-sorteio-topo" class="contador-global">Sorteio Nº --</div>
+        <p id="relogio">Atualizando...</p>
     </header>
 
     <div class="container">
         <div class="cartao lotinha">
             <div class="titulo-loteria">Lotinha</div>
+            <div class="numero-concurso" id="concurso-lotinha">Sorteio Nº --</div>
             <div class="numeros-container" id="resultado-lotinha"></div>
-            <div class="info-horario">Sorteio de 15 dezenas (01-25)</div>
+            <div class="info-horario">15 dezenas (01-25)</div>
         </div>
 
         <div class="cartao seninha">
             <div class="titulo-loteria">Seninha</div>
+            <div class="numero-concurso" id="concurso-seninha">Sorteio Nº --</div>
             <div class="numeros-container" id="resultado-seninha"></div>
-            <div class="info-horario">Sorteio de 6 dezenas (01-60)</div>
+            <div class="info-horario">6 dezenas (01-60)</div>
         </div>
 
         <div class="cartao quininha">
             <div class="titulo-loteria">Quininha</div>
+            <div class="numero-concurso" id="concurso-quininha">Sorteio Nº --</div>
             <div class="numeros-container" id="resultado-quininha"></div>
-            <div class="info-horario">Sorteio de 5 dezenas (01-80)</div>
+            <div class="info-horario">5 dezenas (01-80)</div>
+        </div>
+
+        <div class="cartao dupla-seninha">
+            <div class="titulo-loteria">Dupla Seninha</div>
+            <div class="numero-concurso" id="concurso-dupla">Sorteio Nº --</div>
+            
+            <div class="sub-titulo-dupla">1º SORTEIO</div>
+            <div class="numeros-container" id="resultado-dupla-1"></div>
+            
+            <div class="sub-titulo-dupla" style="margin-top: 15px;">2º SORTEIO</div>
+            <div class="numeros-container" id="resultado-dupla-2"></div>
+            
+            <div class="info-horario">6 dezenas em cada (01-50)</div>
         </div>
     </div>
 
@@ -135,17 +122,15 @@
     </footer>
 
     <script>
-        // Função para gerar números aleatórios porém consistentes baseados numa semente
+        const DATA_INICIO = new Date(2026, 3, 21); // 21/04/2026
+
         function gerarNumerosSorteados(semente, quantidade, maximo) {
             const numeros = [];
             let s = semente;
-            
-            // Função pseudo-aleatória
             const random = () => {
                 s = Math.sin(s) * 10000;
                 return s - Math.floor(s);
             };
-
             while (numeros.length < quantidade) {
                 const num = Math.floor(random() * maximo) + 1;
                 if (!numeros.includes(num)) {
@@ -155,45 +140,54 @@
             return numeros.sort((a, b) => a - b);
         }
 
-        function atualizarSorteios() {
+        function atualizarPagina() {
             const agora = new Date();
-            const ano = agora.getFullYear();
-            const mes = agora.getMonth();
-            const dia = agora.getDate();
             const hora = agora.getHours();
 
-            // Define a semente baseada na regra das 21h
-            let dataReferencia = new Date(ano, mes, dia);
-            
+            let dataRef = new Date(agora.getFullYear(), agora.getMonth(), agora.getDate());
             if (hora < 21) {
-                // Se ainda não são 21h, usa a semente do dia anterior
-                dataReferencia.setDate(dataReferencia.getDate() - 1);
+                dataRef.setDate(dataRef.getDate() - 1);
             }
 
-            const sementeBase = dataReferencia.getTime();
+            const diffTime = Math.abs(dataRef - DATA_INICIO);
+            const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+            const nSorteio = diffDays + 1;
 
-            // Renderiza cada loteria
-            exibirBolas('resultado-lotinha', gerarNumerosSorteados(sementeBase, 15, 25));
-            exibirBolas('resultado-seninha', gerarNumerosSorteados(sementeBase + 1, 6, 60));
-            exibirBolas('resultado-quininha', gerarNumerosSorteados(sementeBase + 2, 5, 80));
+            const semente = dataRef.getTime();
 
-            document.getElementById('relogio').innerText = "Horário atual: " + agora.toLocaleTimeString('pt-PT');
+            const txt = `SORTEIO Nº ${nSorteio}`;
+            document.getElementById('display-sorteio-topo').innerText = txt;
+            document.getElementById('concurso-lotinha').innerText = txt;
+            document.getElementById('concurso-seninha').innerText = txt;
+            document.getElementById('concurso-quininha').innerText = txt;
+            document.getElementById('concurso-dupla').innerText = txt;
+
+            exibirBolas('resultado-lotinha', gerarNumerosSorteados(semente, 15, 25));
+            exibirBolas('resultado-seninha', gerarNumerosSorteados(semente + 1, 6, 60));
+            exibirBolas('resultado-quininha', gerarNumerosSorteados(semente + 2, 5, 80));
+            exibirBolas('resultado-dupla-1', gerarNumerosSorteados(semente + 3, 6, 50));
+            exibirBolas('resultado-dupla-2', gerarNumerosSorteados(semente + 4, 6, 50));
+
+            document.getElementById('relogio').innerText = "Horário atual: " + agora.toLocaleTimeString('pt-BR');
         }
 
-        function exibirBolas(idElemento, numeros) {
-            const container = document.getElementById(idElemento);
-            container.innerHTML = '';
-            numeros.forEach(n => {
-                const bola = document.createElement('div');
-                bola.className = 'bola';
-                bola.innerText = n < 10 ? '0' + n : n;
-                container.appendChild(bola);
-            });
+        function exibirBolas(id, numeros) {
+            const container = document.getElementById(id);
+            const str = numeros.join(',');
+            if (container.getAttribute('data-last') !== str) {
+                container.innerHTML = '';
+                numeros.forEach(n => {
+                    const bola = document.createElement('div');
+                    bola.className = 'bola';
+                    bola.innerText = n < 10 ? '0' + n : n;
+                    container.appendChild(bola);
+                });
+                container.setAttribute('data-last', str);
+            }
         }
 
-        // Atualiza a cada segundo para garantir precisão na viragem das 21h
-        setInterval(atualizarSorteios, 1000);
-        atualizarSorteios();
+        setInterval(atualizarPagina, 1000);
+        atualizarPagina();
     </script>
 </body>
 </html>
