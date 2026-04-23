@@ -10,6 +10,8 @@
             --verde: #27ae60;
             --azul: #2980b9;
             --rosa: #e91e63;
+            --marrom: #795548;
+            --laranja: #f39c12;
             --fundo: #f0f2f5;
             --texto: #2c3e50;
         }
@@ -26,7 +28,7 @@
         }
 
         header { text-align: center; margin-bottom: 25px; }
-        h1 { font-size: 1.5rem; color: #1a1a1a; margin-bottom: 5px; text-transform: uppercase; }
+        h1 { font-size: 1.4rem; color: #1a1a1a; margin-bottom: 5px; text-transform: uppercase; }
 
         .contador-global {
             background: #333; color: #fff; padding: 5px 15px;
@@ -40,20 +42,29 @@
             margin-bottom: 25px; box-shadow: 0 10px 20px rgba(0,0,0,0.05); text-align: center;
         }
 
-        .titulo-loteria { font-size: 1.4rem; font-weight: bold; margin-bottom: 5px; text-transform: uppercase; }
-        .numero-concurso { font-size: 0.9rem; margin-bottom: 15px; font-weight: 600; opacity: 0.7; }
+        .titulo-loteria { font-size: 1.3rem; font-weight: bold; margin-bottom: 5px; text-transform: uppercase; }
+        .numero-concurso { font-size: 0.85rem; margin-bottom: 15px; font-weight: 600; opacity: 0.7; }
 
         .sub-titulo-dupla {
             font-size: 0.8rem; font-weight: bold; margin: 10px 0 5px 0;
             color: #555; background: #fdf2f8; display: inline-block; padding: 2px 10px; border-radius: 5px;
         }
 
-        .numeros-container { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; }
+        .numeros-container { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; min-height: 40px; }
+
+        /* --- ANIMAÇÃO DAS BOLAS --- */
+        @keyframes popIn {
+            0% { transform: scale(0); opacity: 0; }
+            80% { transform: scale(1.1); }
+            100% { transform: scale(1); opacity: 1; }
+        }
 
         .bola {
-            width: 38px; height: 38px; border-radius: 50%; display: flex;
+            width: 34px; height: 34px; border-radius: 50%; display: flex;
             align-items: center; justify-content: center; color: white;
-            font-weight: bold; font-size: 1rem; box-shadow: 0 4px 0 rgba(0,0,0,0.15);
+            font-weight: bold; font-size: 0.9rem; box-shadow: 0 3px 0 rgba(0,0,0,0.15);
+            /* Aplica a animação */
+            animation: popIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) both;
         }
 
         .lotinha .titulo-loteria { color: var(--roxo); }
@@ -64,8 +75,12 @@
         .quininha .bola { background-color: var(--azul); }
         .dupla-seninha .titulo-loteria { color: var(--rosa); }
         .dupla-seninha .bola { background-color: var(--rosa); }
+        .super-7 .titulo-loteria { color: var(--marrom); }
+        .super-7 .bola { background-color: var(--marrom); }
+        .super-20 .titulo-loteria { color: var(--laranja); }
+        .super-20 .bola { background-color: var(--laranja); }
 
-        .info-horario { font-size: 0.8rem; color: #7f8c8d; margin-top: 15px; }
+        .info-horario { font-size: 0.75rem; color: #7f8c8d; margin-top: 15px; }
 
         footer {
             margin-top: 30px; padding: 20px; font-weight: bold;
@@ -85,35 +100,46 @@
         <div class="cartao lotinha">
             <div class="titulo-loteria">Lotinha</div>
             <div class="numero-concurso" id="concurso-lotinha">Sorteio Nº --</div>
-            <div class="numeros-container" id="resultado-lotinha"></div>
+            <div id="resultado-lotinha" class="numeros-container"></div>
             <div class="info-horario">15 dezenas (01-25)</div>
         </div>
 
         <div class="cartao seninha">
             <div class="titulo-loteria">Seninha</div>
             <div class="numero-concurso" id="concurso-seninha">Sorteio Nº --</div>
-            <div class="numeros-container" id="resultado-seninha"></div>
+            <div id="resultado-seninha" class="numeros-container"></div>
             <div class="info-horario">6 dezenas (01-60)</div>
         </div>
 
         <div class="cartao quininha">
             <div class="titulo-loteria">Quininha</div>
             <div class="numero-concurso" id="concurso-quininha">Sorteio Nº --</div>
-            <div class="numeros-container" id="resultado-quininha"></div>
+            <div id="resultado-quininha" class="numeros-container"></div>
             <div class="info-horario">5 dezenas (01-80)</div>
         </div>
 
         <div class="cartao dupla-seninha">
             <div class="titulo-loteria">Dupla Seninha</div>
             <div class="numero-concurso" id="concurso-dupla">Sorteio Nº --</div>
-            
             <div class="sub-titulo-dupla">1º SORTEIO</div>
-            <div class="numeros-container" id="resultado-dupla-1"></div>
-            
-            <div class="sub-titulo-dupla" style="margin-top: 15px;">2º SORTEIO</div>
-            <div class="numeros-container" id="resultado-dupla-2"></div>
-            
+            <div id="resultado-dupla-1" class="numeros-container"></div>
+            <div class="sub-titulo-dupla" style="margin-top: 10px;">2º SORTEIO</div>
+            <div id="resultado-dupla-2" class="numeros-container"></div>
             <div class="info-horario">6 dezenas em cada (01-50)</div>
+        </div>
+
+        <div class="cartao super-7">
+            <div class="titulo-loteria">Super 7</div>
+            <div class="numero-concurso" id="concurso-super7">Sorteio Nº --</div>
+            <div id="resultado-super7" class="numeros-container"></div>
+            <div class="info-horario">7 dezenas (01-31)</div>
+        </div>
+
+        <div class="cartao super-20">
+            <div class="titulo-loteria">Super 20</div>
+            <div class="numero-concurso" id="concurso-super20">Sorteio Nº --</div>
+            <div id="resultado-super20" class="numeros-container"></div>
+            <div class="info-horario">20 dezenas (00-99)</div>
         </div>
     </div>
 
@@ -122,9 +148,9 @@
     </footer>
 
     <script>
-        const DATA_INICIO = new Date(2026, 3, 21); // 21/04/2026
+        const DATA_INICIO = new Date(2026, 3, 21);
 
-        function gerarNumerosSorteados(semente, quantidade, maximo) {
+        function gerarNumerosSorteados(semente, quantidade, maximo, minimo = 1) {
             const numeros = [];
             let s = semente;
             const random = () => {
@@ -132,7 +158,7 @@
                 return s - Math.floor(s);
             };
             while (numeros.length < quantidade) {
-                const num = Math.floor(random() * maximo) + 1;
+                const num = Math.floor(random() * (maximo - minimo + 1)) + minimo;
                 if (!numeros.includes(num)) {
                     numeros.push(num);
                 }
@@ -143,43 +169,47 @@
         function atualizarPagina() {
             const agora = new Date();
             const hora = agora.getHours();
-
             let dataRef = new Date(agora.getFullYear(), agora.getMonth(), agora.getDate());
+            
             if (hora < 21) {
                 dataRef.setDate(dataRef.getDate() - 1);
             }
 
-            const diffTime = Math.abs(dataRef - DATA_INICIO);
-            const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+            const diffDays = Math.floor(Math.abs(dataRef - DATA_INICIO) / (1000 * 60 * 60 * 24));
             const nSorteio = diffDays + 1;
-
             const semente = dataRef.getTime();
 
             const txt = `SORTEIO Nº ${nSorteio}`;
-            document.getElementById('display-sorteio-topo').innerText = txt;
-            document.getElementById('concurso-lotinha').innerText = txt;
-            document.getElementById('concurso-seninha').innerText = txt;
-            document.getElementById('concurso-quininha').innerText = txt;
-            document.getElementById('concurso-dupla').innerText = txt;
+            const ids = ['display-sorteio-topo', 'concurso-lotinha', 'concurso-seninha', 'concurso-quininha', 'concurso-dupla', 'concurso-super7', 'concurso-super20'];
+            ids.forEach(id => {
+                const el = document.getElementById(id);
+                if(el && el.innerText !== txt) el.innerText = txt;
+            });
 
             exibirBolas('resultado-lotinha', gerarNumerosSorteados(semente, 15, 25));
             exibirBolas('resultado-seninha', gerarNumerosSorteados(semente + 1, 6, 60));
             exibirBolas('resultado-quininha', gerarNumerosSorteados(semente + 2, 5, 80));
             exibirBolas('resultado-dupla-1', gerarNumerosSorteados(semente + 3, 6, 50));
             exibirBolas('resultado-dupla-2', gerarNumerosSorteados(semente + 4, 6, 50));
+            exibirBolas('resultado-super7', gerarNumerosSorteados(semente + 5, 7, 31));
+            exibirBolas('resultado-super20', gerarNumerosSorteados(semente + 6, 20, 99, 0));
 
             document.getElementById('relogio').innerText = "Horário atual: " + agora.toLocaleTimeString('pt-BR');
         }
 
         function exibirBolas(id, numeros) {
             const container = document.getElementById(id);
+            if (!container) return;
             const str = numeros.join(',');
+            
             if (container.getAttribute('data-last') !== str) {
                 container.innerHTML = '';
-                numeros.forEach(n => {
+                numeros.forEach((n, index) => {
                     const bola = document.createElement('div');
                     bola.className = 'bola';
                     bola.innerText = n < 10 ? '0' + n : n;
+                    // Efeito Staggered: cada bola aparece 0.05s depois da anterior
+                    bola.style.animationDelay = (index * 0.05) + 's';
                     container.appendChild(bola);
                 });
                 container.setAttribute('data-last', str);
